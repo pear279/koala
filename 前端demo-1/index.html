@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodSeed - 情绪社交AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-nav">
+            <div class="avatar">
+                <img src="placeholder/avatar.png" alt="用户头像">
+                <p>用户名</p>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-section="homepage"><i class="fas fa-home"></i> 首页</li>
+                <li data-section="story-library"><i class="fas fa-book"></i> 故事库</li>
+                <li data-section="messages"><i class="fas fa-comments"></i> 消息</li>
+                <li data-section="help"><i class="fas fa-question-circle"></i> 帮助</li>
+                <li data-section="settings"><i class="fas fa-cog"></i> 设置</li>
+            </ul>
+        </div>
+
+        <div class="center-display">
+            <div class="section homepage" data-section="homepage">
+                <div class="homepage-nav">
+                    <button class="homepage-nav-btn active" data-page="start-recording">开始记录</button>
+                    <button class="homepage-nav-btn" data-page="plant-gallery">植物图鉴</button>
+                    <button class="homepage-nav-btn" data-page="my-forest">我的森林</button>
+                    <button class="homepage-nav-btn" data-page="plant-community">植物社区</button>
+                </div>
+
+                <div class="homepage-content">
+                    <div class="homepage-page start-recording active" data-page="start-recording">
+                        <h2>记录你的心事</h2>
+                        <p>请在右侧选择一个AI伙伴，开始记录和交流。</p>
+                        <img src="placeholder/journal-prompt.png" alt="记录示意图" class="content-placeholder-img">
+                        <p class="subtle-text">"种下你的心事，长出你的故事"</p>
+                    </div>
+
+                    <div class="homepage-page plant-gallery" data-page="plant-gallery">
+                        <h2>植物图鉴</h2>
+                        <div class="gallery-grid">
+                            <div class="plant-card">
+                                <img src="placeholder/plant1.png" alt="植物1">
+                                <p>温柔草</p>
+                            </div>
+                            <div class="plant-card">
+                                <img src="placeholder/plant2.png" alt="植物2">
+                                <p>勇气花</p>
+                            </div>
+                            <div class="plant-card">
+                                <img src="placeholder/plant3.png" alt="植物3">
+                                <p>宁静树</p>
+                            </div>
+                            <div class="plant-card">
+                                <img src="placeholder/plant4.png" alt="植物4">
+                                <p>快乐果</p>
+                            </div>
+                            <div class="plant-card">
+                                <img src="placeholder/plant5.png" alt="植物5">
+                                <p>希望藤</p>
+                            </div>
+                            <div class="plant-card">
+                                <img src="placeholder-plant6.png" alt="植物6">
+                                <p>智慧芽</p>
+                            </div>
+                        </div>
+                        <p class="more-info">更多植物等待解锁...</p>
+                    </div>
+
+                    <div class="homepage-page my-forest" data-page="my-forest">
+                        <h2>我的森林</h2>
+                        <div class="forest-top">
+                            <div class="plant-large-view">
+                                <img src="placeholder-my-plant.png" alt="我的植物大图">
+                            </div>
+                            <div class="plant-details">
+                                <h3>我的温柔草</h3>
+                                <p><strong>植物信息:</strong> 编号#001，种植于2023年10月27日</p>
+                                <p><strong>记录内容:</strong> (最近一次记录摘要)</p>
+                                <div class="mood-tags">
+                                    <strong>情绪标签:</strong>
+                                    <span class="tag">#平静</span>
+                                    <span class="tag">#期待</span>
+                                    <span class="tag">#小确幸</span>
+                                </div>
+                                <p><strong>生长阶段:</strong> 幼苗期 (2/5)</p>
+                            </div>
+                        </div>
+                        <div class="forest-bottom">
+                            <p class="flower-language">随机花语: "每一次呼吸，都充满宁静的可能。"</p>
+                            <div class="inventory-n-progress">
+                                <div class="seed-bag">
+                                    <h4>种子背包</h4>
+                                    <div class="seed-item">🌱 x 3</div>
+                                    <div class="seed-item">🌸 x 1</div>
+                                </div>
+                                <div class="cultivation-progress">
+                                    <h4>培育进度</h4>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" style="width: 60%;"></div>
+                                    </div>
+                                    <p>总进度: 60%</p>
+                                </div>
+                            </div>
+                            <div class="resource-summary">
+                                <h4>养料资源</h4>
+                                <div class="resource-item">
+                                    <i class="fas fa-sun"></i> 阳光: 150
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-tint"></i> 水滴: 200
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-flask"></i> 肥料: 80
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="homepage-page plant-community" data-page="plant-community">
+                        <h2>植物社区</h2>
+                        <div class="community-section">
+                            <h3>合种模式</h3>
+                            <p>邀请好友一起培育独属于你们的数字植物，共同记录和分享心事。</p>
+                            <button class="btn">创建合种</button>
+                            <button class="btn secondary">加入合种</button>
+                        </div>
+                        <div class="community-section">
+                            <h3>与他相关</h3>
+                            <p>浏览其他用户公开分享的植物故事和心事片段，寻找共鸣。</p>
+                            <div class="related-stories-grid">
+                                <div class="community-story-card">
+                                    <p>"今天的小确幸..."</p>
+                                    <p class="meta">- 用户***</p>
+                                </div>
+                                <div class="community-story-card">
+                                    <p>"关于勇气..."</p>
+                                    <p class="meta">- 用户***</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section story-library" data-section="story-library">
+                <div class="section-nav">
+                    <button class="section-nav-btn active">我的</button>
+                    <button class="section-nav-btn">朋友</button>
+                    <button class="section-nav-btn">社区</button>
+                </div>
+                <h2>我的故事库</h2>
+                <div class="story-cards-container">
+                    <div class="story-card">
+                        <p class="story-date">2023年10月26日</p>
+                        <p class="story-excerpt">今天和AI温柔草聊了很久，关于职场上的小挫折...</p>
+                        <div class="story-meta">
+                            <span class="story-tags">#焦虑 #沟通 #职场新人</span>
+                            <button class="like-btn"><i class="far fa-heart"></i> <span>12</span></button>
+                        </div>
+                    </div>
+                    <div class="story-card">
+                        <p class="story-date">2023年10月25日</p>
+                        <p class="story-excerpt">植物长出了第一片叶子，感觉心情也明亮了许多...</p>
+                        <div class="story-meta">
+                            <span class="story-tags">#期待 #小确幸 #成长</span>
+                            <button class="like-btn"><i class="fas fa-heart"></i> <span>25</span></button>
+                        </div>
+                    </div>
+                    <div class="story-card">
+                        <p class="story-date">2023年10月24日</p>
+                        <p class="story-excerpt">和AI勇气花探讨了如何应对演讲的紧张感...</p>
+                        <div class="story-meta">
+                            <span class="story-tags">#紧张 #勇气 #演讲</span>
+                            <button class="like-btn"><i class="far fa-heart"></i> <span>8</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section messages" data-section="messages">
+                <div class="section-nav">
+                    <button class="section-nav-btn active">我的</button>
+                    <button class="section-nav-btn">朋友</button>
+                    <button class="section-nav-btn">社区</button>
+                </div>
+                <h2>消息</h2>
+                <div class="messages-content">
+                    <div class="message-item">
+                        <p><strong>系统通知:</strong> 您的温柔草已进入成长期！</p>
+                        <span class="message-time">1小时前</span>
+                    </div>
+                    <div class="message-item">
+                        <p><strong>[合种] 森林伙伴:</strong> 阳光已收集完毕！</p>
+                        <span class="message-time">3小时前</span>
+                    </div>
+                    <div class="message-item">
+                        <p><strong>评论回复:</strong> 您的社区故事收到了新的评论。</p>
+                        <span class="message-time">昨天</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section help" data-section="help">
+                <h2>帮助中心</h2>
+                <p>这里是帮助中心内容...</p>
+            </div>
+            <div class="section settings" data-section="settings">
+                <h2>设置</h2>
+                <p>这里是设置内容...</p>
+            </div>
+
+        </div>
+
+        <div class="right-chat">
+            <h2>与AI伙伴对话</h2>
+            <div class="resources">
+                <div class="resource-item">
+                    <i class="fas fa-sun"></i>
+                    <div class="progress-bar-container small">
+                        <div class="progress-bar" style="width: 36%;"></div>
+                    </div>
+                    <span class="progress-text">36%</span>
+                </div>
+                <div class="resource-item">
+                    <i class="fas fa-tint"></i>
+                    <div class="progress-bar-container small">
+                        <div class="progress-bar" style="width: 24%;"></div>
+                    </div>
+                    <span class="progress-text">24%</span>
+                </div>
+                <div class="resource-item">
+                    <i class="fas fa-flask"></i>
+                    <div class="progress-bar-container small">
+                        <div class="progress-bar" style="width: 12%;"></div>
+                    </div>
+                    <span class="progress-text">12%</span>
+                </div>
+            </div>
+
+            <div class="ai-selection">
+                <h3>选择你的AI伙伴:</h3>
+                <button class="ai-btn active">温柔草 (温柔治愈型)</button>
+                <button class="ai-btn">勇气花 (积极引导型)</button>
+                <button class="ai-btn">宁静树 (理性分析型)</button>
+            </div>
+
+            <div class="chat-window">
+                <div class="message user">
+                    <p>今天工作有点不顺心，感觉压力好大。</p>
+                </div>
+                <div class="message ai">
+                    <p>抱抱你呀，温柔草在这里听你说。方便告诉我具体发生了什么吗？或者只是想找人说说话也可以哦。</p>
+                </div>
+                <div class="message user">
+                    <p>就是老板突然布置了一个紧急任务，感觉自己之前计划都被打乱了，有点手足无措。</p>
+                </div>
+                <div class="message ai">
+                    <p>听到你感到手足无措，这确实挺让人烦恼的。在这种时候，停下来深呼吸几次可能会有帮助。我们先来梳理一下这个紧急任务，好吗？</p>
+                </div>
+            </div>
+
+            <div class="emotion-tags-area">
+                <p>识别到你的情绪倾向 (点击选择/确认):</p>
+                <div class="emotion-tags-list">
+                    <span class="tag active">#压力</span>
+                    <span class="tag">#手足无措</span>
+                    <span class="tag">#焦虑</span>
+                    <span class="tag">#被打乱计划</span>
+                    <span class="tag">#寻求支持</span>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <textarea placeholder="输入你的心事..."></textarea>
+                <button class="send-btn"><i class="fas fa-paper-plane"></i> 发送</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
