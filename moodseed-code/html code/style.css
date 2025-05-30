@@ -1,0 +1,831 @@
+/* 页面整体样式 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Microsoft YaHei', Inter, Arial, sans-serif;
+    background: #F5F5F5;
+    min-width: 1200px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* 禁止页面滚动 */
+}
+
+/* 背景图层 */
+.background {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background: url('../images/背景图.jpg') no-repeat center center/cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* 三栏主容器 */
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 1920px;
+    height: 100vh;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* 左侧导航栏 */
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: rgba(255,255,255,0.2);
+    border-right: 2px solid #BCA4E4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    box-sizing: border-box;
+}
+.logo-area {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 90%; /* 限制宽度，避免超出边界 */
+    margin-bottom: 40px;
+    padding-left: 0;
+    margin-left: 0;
+}
+.logo-img {
+    height: 72px; /* 放大logo */
+    width: 72px;
+    object-fit: contain;
+    margin-right: 10px;
+}
+.logo-text {
+    font-family: 'Spicy Rice', 'Microsoft YaHei', cursive, sans-serif;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 8px #e6d7ff44;
+    background: linear-gradient(90deg, #8C76B7 0%, #E6D7FF 40%, #fff 50%, #BCA4E4 80%, #453367 100%);
+    border-radius: 24px;
+    padding: 8px 24px 8px 24px;
+    box-shadow: 0 2px 12px #bca4e455;
+    display: flex;
+    align-items: center;
+    max-width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+.logo-text::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    border-radius: 24px;
+    z-index: -1;
+    background: linear-gradient(90deg, #453367 0%, #8C76B7 100%);
+    opacity: 0.25;
+}
+.logo-text {
+    background-image: linear-gradient(90deg, #BCA4E4 0%, #fff 50%, #453367 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+    width: 100%;
+    align-items: center;
+    margin-top: 48px;
+}
+.nav-item {
+    color: #fff;
+    font-size: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s, background 0.2s;
+    padding: 12px 0;
+    width: 100%;
+    text-align: center;
+    border-radius: 24px;
+    margin: 0 auto;
+    background: linear-gradient(90deg, #8C76B7 0%, #BCA4E4 100%);
+    box-shadow: 0 2px 12px #bca4e433;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+.nav-item-active {
+    background: linear-gradient(90deg, #C7B6F7 0%, #E6D7FF 100%);
+    color: #453367;
+    box-shadow: 0 2px 16px #e6d7ff66;
+}
+.nav-item:hover {
+    color: #453367;
+    background: linear-gradient(90deg, #E6D7FF 0%, #BCA4E4 100%);
+}
+.user-info {
+    margin-top: auto;
+    margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    font-size: 18px;
+}
+
+/* 中间内容区 */
+.center {
+    width: 1220px; /* 1920-280-420 */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 40px 0 0 0;
+    box-sizing: border-box;
+    gap: 20px; /* Reduce gap */
+}
+
+/* 进度条分组 */
+.progress-group {
+    width: calc(100% - 200px); /* Match lucky flower card width */
+    margin-left: 100px; /* Match lucky flower card margin */
+    margin-right: 100px;
+    display: flex;
+    flex-direction: column; /* Stack progress bar area and divider vertically */
+    align-items: center; /* Center items horizontally within the group */
+    margin-top: -20px; /* Reduce top margin by 20px */
+    margin-bottom: 32px; /* Add some space below the group */
+    /* max-height: 100px; Remove max-height */
+    /* overflow: hidden; Remove overflow */
+}
+
+/* 养成进度条区 */
+.progress-bar-area {
+    width: 100%; /* Take full width of the group */
+    /* width: calc(100% - 240px); Remove fixed width */
+    /* margin-left: 120px; Remove fixed margins */
+    /* margin-right: 120px; Remove fixed margins */
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align items vertically */
+    margin-top: 0; /* Remove top margin */
+    margin-bottom: 16px; /* Keep some space before the divider */
+    gap: 20px; /* Reduce gap between progress bars */
+    height: 60px; /* Set a fixed height for the progress bar area */
+}
+.progress-bar {
+    position: relative;
+    width: 280px;
+    height: 40px; /* Reduce height */
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px #0002; /* Reduce shadow */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-sizing: border-box;
+    margin-bottom: 0; /* Remove bottom margin */
+}
+.progress-bar-content {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.progress-bar-inner {
+    position: absolute;
+    left: 0; top: 0;
+    border-radius: 4px 0 0 4px;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.progress-bar.sun .progress-bar-inner {
+    width: 50%;
+    background: linear-gradient(90deg, #E08B3D 0%, #FFE3C0 100%);
+}
+.progress-bar.water .progress-bar-inner {
+    width: 60%;
+    background: linear-gradient(90deg, #5BA9F9 0%, #E3F1FF 100%);
+}
+.progress-bar.fertilizer .progress-bar-inner {
+    width: 40%;
+    background: linear-gradient(90deg, #888 0%, #eee 100%);
+}
+.progress-bar .progress-icon {
+    position: absolute;
+    right: 12px; /* Adjust icon position */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px; /* Reduce icon size */
+    height: 20px; /* Reduce icon size */
+    display: block;
+    z-index: 2;
+}
+.progress-bar .progress-icon circle,
+.progress-bar .progress-icon path,
+.progress-bar .progress-icon rect,
+.progress-bar .progress-icon line,
+.progress-bar .progress-icon text {
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+.progress-bar.fertilizer .progress-icon text {
+    fill: #888;
+    stroke: none;
+}
+.progress-label {
+    color: #fff;
+    font-size: 14px; /* Reduce font size */
+    font-weight: bold;
+    text-shadow: 0 1px 2px #0006; /* Reduce shadow */
+    white-space: nowrap;
+    letter-spacing: 1px;
+    text-align: center;
+    position: absolute;
+    /* left: 50%; */ /* Remove absolute positioning for text */
+    /* top: 100%; */ /* Remove absolute positioning for text */
+    /* transform: translate(-50%, 5px); */ /* Remove transform */
+    z-index: 10;
+    margin: 0 auto; /* Center horizontally */
+    padding: 0;
+    bottom: -25px; /* Adjust position slightly lower */
+    left: 0; right: 0; /* Span full width for centering */
+}
+.progress-divider {
+    width: 100%;
+    border: none;
+    border-top: 2px solid #ccc;
+    margin-top: 24px; /* Add top margin */
+    margin-bottom: 0; /* Remove bottom margin */
+    opacity: 0.5;
+}
+
+/* 今日幸运花语区 */
+.lucky-flower {
+    width: 100%;
+    /* background: rgba(255,255,255,0.8); */ /* Removed background */
+    border-radius: 20px;
+    padding: 0 0 0 0; /* Removed padding */
+    /* box-shadow: 0 4px 24px rgba(188,164,228,0.1); */ /* Removed box-shadow */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px; /* Add bottom margin */
+}
+.lucky-flower h2 {
+    font-size: 28px;
+    color: #fff;
+    margin-bottom: 24px;
+    text-align: left;
+    margin-left: 80px; /* Keep left margin at 80px as parent padding is 0 */
+}
+.flower-card {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+.flower-card img {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+.flower-desc {
+    font-size: 22px;
+    color: #453367;
+    font-weight: bold;
+}
+.flower-quote {
+    font-size: 16px;
+    color: #666;
+    margin-left: 24px;
+    font-style: italic;
+    max-width: 350px;
+}
+
+/* AI性格区 */
+.ai-personality {
+    width: 90%;
+    border-radius: 20px;
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ai-personality h2 {
+    font-size: 28px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 24px;
+    text-align: left;
+    margin-left: 10px; /* Keep adjusted left margin for 80px alignment from center edge */
+}
+.personality-list {
+    display: flex;
+    gap: 32px; /* Add gap between avatars */
+    width: calc(100% - 200px); /* Match flower card width */
+    margin-left: 100px;
+    margin-right: 100px;
+    justify-content: space-between; /* Distribute space evenly */
+    align-items: flex-start; /* Align items to the top */
+    margin-bottom: 20px; /* Reduce bottom margin between list and more */
+}
+.personality-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    color: #fff;
+}
+.personality-item img {
+    width: 180px;
+    height: 180px;
+    border-radius: 0;
+    margin-bottom: 8px;
+}
+.personality-more {
+    width: calc(100% - 200px); /* Match personality list width */
+    background-color: white;
+    color: #999; /* Change more text color to medium gray */
+    font-size: 24px;
+    text-align: center;
+    padding: 16px 0; /* Add vertical padding */
+    margin-bottom: 30px; /* Reduce bottom margin */
+    margin-top: 55px; /* Adjust top margin to move up by 15px */
+    margin-left: 100px; /* Match personality list left margin */
+    margin-right: 100px; /* Match personality list right margin */
+    box-sizing: border-box;
+}
+
+/* 右侧对话区 */
+.chat-panel {
+    width: 420px;
+    height: 100vh;
+    background: rgba(255,255,255,0.2); /* 20%透明度白色 */
+    border-left: 2px solid #BCA4E4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 40px 40px 0 40px;
+    box-sizing: border-box;
+    position: relative;
+}
+.chat-title {
+    font-size: 28px;
+    color: #453367;
+    margin-bottom: 20px;
+}
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 20px;
+    width: 100%;
+    max-height: 600px;
+    overflow-y: auto;
+}
+.chat-item {
+    display: flex;
+    align-items: flex-end;
+    padding: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: #333;
+    font-size: 10px;
+    max-width: 100%;
+    word-break: break-all;
+    margin-bottom: 8px;
+    box-shadow: none;
+}
+.chat-item.user {
+    align-self: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
+    background: transparent;
+}
+.chat-item.ai {
+    align-self: flex-start;
+    flex-direction: row;
+    justify-content: flex-start;
+    background: transparent;
+}
+.chat-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eee;
+    display: inline-block;
+    flex-shrink: 0;
+}
+.chat-avatar.right {
+    margin-left: 10px;
+    margin-right: 0;
+}
+.chat-avatar.left {
+    margin-right: 10px;
+    margin-left: 0;
+}
+.chat-text {
+    flex: 1;
+    display: block;
+    position: relative;
+    padding: 16px 20px;
+    border-radius: 18px;
+    background: #E6D7FF;
+    color: #453367;
+    box-shadow: 0 2px 8px #bca4e433;
+    margin: 0;
+    font-size: 10px;
+    word-break: break-all;
+    min-width: 0;
+    max-width: 260px;
+}
+.chat-item.ai .chat-text {
+    background: #fff;
+    color: #666;
+    box-shadow: 0 2px 8px #e6d7ff33;
+}
+/* 聊天气泡小尾巴 */
+.chat-item.user .chat-text::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 24px;
+    border-width: 8px 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #E6D7FF;
+}
+.chat-item.ai .chat-text::after {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 24px;
+    border-width: 8px 8px 8px 0;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
+}
+.chat-input {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+}
+.chat-input input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #BCA4E4;
+    font-size: 16px;
+}
+.chat-input button {
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    background: #8C76B7;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.chat-input button:hover {
+    background: #453367;
+}
+
+/* 页脚样式（已移除） */
+.footer {
+    display: none;
+}
+
+/* 响应式适配（大屏缩放） */
+@media (max-width: 1920px) {
+    .container {
+        width: 100vw;
+        min-width: 1200px;
+    }
+}
+
+/* 聊天区整体行布局 */
+.chat-row {
+    display: flex;
+    align-items: center; /* 头像和气泡垂直居中对齐 */
+    margin-bottom: 24px;
+}
+.chat-row.ai {
+    flex-direction: row;
+    justify-content: flex-start;
+}
+.chat-row.user {
+    flex-direction: row;
+    justify-content: flex-end;
+}
+.chat-row.user .chat-avatar-col {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 10px;
+    margin-right: 0;
+}
+.chat-row.user .chat-bubble-col {
+    align-items: flex-end;
+    justify-content: center;
+}
+/* 头像及身份 */
+.chat-avatar-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 垂直居中 */
+    width: 80px;
+    margin: 0 10px;
+}
+.chat-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #eee;
+    margin-bottom: 4px;
+}
+.chat-identity {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 2px;
+    letter-spacing: 2px;
+    text-align: center;
+    text-shadow: 0 2px 8px #45336799;
+}
+/* 气泡及标签 */
+.chat-bubble-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 320px;
+}
+.chat-bubble {
+    position: relative;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px #bca4e433;
+    padding: 16px 20px;
+    font-size: 10px;
+    color: #333;
+    text-align: left;
+    min-width: 60px;
+    max-width: 320px;
+    word-break: break-all;
+}
+.chat-row.user .chat-bubble {
+    background: #E6D7FF;
+    color: #453367;
+    text-align: left;
+}
+/* 气泡小尾巴 */
+.chat-row.ai .chat-bubble::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 24px;
+    border-width: 8px 8px 8px 0;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
+}
+.chat-row.user .chat-bubble::before {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 24px;
+    border-width: 8px 0 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent transparent #E6D7FF;
+}
+/* 标签样式 */
+.chat-tags {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+.chat-tag {
+    background: linear-gradient(90deg, #8C76B7 0%, #BCA4E4 100%);
+    color: #fff;
+    font-size: 10px;
+    border-radius: 12px;
+    padding: 2px 12px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 1px 4px #bca4e433;
+}
+
+.chat-toolbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    margin-top: 0;
+    padding: 0 0 8px 0;
+    box-sizing: border-box;
+}
+.toolbar-left, .toolbar-right {
+    display: flex;
+    gap: 40px;
+}
+.toolbar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    user-select: none;
+}
+.toolbar-icon {
+    font-size: 32px;
+    margin-bottom: 2px;
+    color: #fff;
+    line-height: 1;
+}
+.toolbar-text {
+    font-size: 14px;
+    color: #fff;
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+.chat-input-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    position: absolute;
+    bottom: 32px;
+    left: 0;
+    padding: 0 0 0 0;
+}
+.seed-btn {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    color: #8C76B7;
+    border: none;
+    border-radius: 24px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 6px 24px;
+    box-shadow: 0 2px 8px #bca4e422;
+    cursor: pointer;
+    margin-left: 16px;
+    margin-bottom: 8px;
+    transition: background 0.2s, color 0.2s;
+}
+.seed-btn:hover {
+    background: #E6D7FF;
+    color: #453367;
+}
+.seed-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+.input-box {
+    width: 95%;
+    background: #E6D7FF;
+    border-radius: 32px;
+    padding: 32px 32px 24px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    margin-left: 8px;
+}
+.input-text {
+    width: 100%;
+    min-height: 60px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 18px;
+    resize: none;
+    margin-bottom: 24px;
+    font-family: inherit;
+}
+.input-text::placeholder {
+    color: #fff;
+    opacity: 0.8;
+}
+.speak-btn {
+    width: 70%;
+    background: #8C76B7;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 0;
+    cursor: pointer;
+    margin: 0 auto;
+    box-shadow: 0 2px 8px #bca4e433;
+    transition: background 0.2s;
+}
+.speak-btn:hover {
+    background: #453367;
+}
+
+/* 幸运花语区-图片背景卡片 */
+.flower-bg-card {
+    width: calc(100% - 200px);
+    margin-left: 100px;
+    margin-right: 100px;
+    height: 180px;
+    background: url('../images/花语.jpg') no-repeat center center/cover;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    overflow: hidden;
+}
+.flower-bg-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+}
+.flower-bg-content .flower-quote {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: left;
+    margin: 0 80px;
+    margin-top: 28px;
+    text-shadow: 0 2px 8px #000a;
+    line-height: 1.4;
+    letter-spacing: 1px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: unset;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 28px;
+    z-index: 2;
+}
+.flower-bg-content .flower-desc {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    position: absolute;
+    right: 48px;
+    bottom: 32px;
+    text-shadow: 0 2px 8px #000a;
+    letter-spacing: 2px;
+}
+.lucky-flower h2 {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 400;
+    margin-bottom: 24px;
+    text-align: left;
+}
+.lucky-flower {
+    background: none;
+    box-shadow: none;
+    padding: 0 0 0 0;
+    width: 100%;
+    align-items: flex-start;
+}
+.butterfly-img {
+    position: absolute;
+    left: 36px;
+    top: 24px;
+    width: 440px;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+} 

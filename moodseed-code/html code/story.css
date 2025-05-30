@@ -1,0 +1,11 @@
+/* ... existing code ... */
+.image-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 将图片靠左对齐 */
+    gap: 40px; /* Adjust the vertical space between images */
+}
+
+.image-stack img {
+/* ... existing code ... */
+}

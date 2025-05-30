@@ -1,0 +1,166 @@
+/* my.css */
+
+.my-main-content {
+    padding: 0; /* 移除内边距 */
+    display: flex;
+    justify-content: flex-start; /* 图片左对齐 */
+    align-items: flex-start; /* 图片顶部对齐 */
+    flex-direction: column; /* 垂直排列子元素 */
+    gap: 30px; /* 调整主要区域之间的垂直间距 */
+}
+
+.my-main-content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    /* 其他标题样式 */
+}
+
+.profile-section {
+    display: flex;
+    align-items: center;
+    gap: 40px; /* 头像和信息之间的间距 */
+    /* 其他样式 */
+}
+
+.profile-avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    /* 其他头像样式 */
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    /* 其他信息样式 */
+}
+
+.profile-info .name {
+    font-size: 20px;
+    font-weight: bold;
+    /* 其他姓名样式 */
+}
+
+.profile-info .email {
+    font-size: 16px;
+    color: #888; /* 调整邮箱颜色 */
+    /* 其他邮箱样式 */
+}
+
+.edit-button {
+    background-color: #4182F9; /* 调整按钮背景颜色 */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* 调整按钮与上方元素的间距 */
+    /* 其他按钮样式 */
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 详情项之间的垂直间距 */
+    width: 80%; /* 调整宽度 */
+    /* 其他样式 */
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee; /* 添加分隔线 */
+    /* 其他样式 */
+}
+
+.detail-item .label {
+    font-size: 16px;
+    font-weight: bold;
+    /* 其他标签样式 */
+}
+
+.detail-item .value {
+    font-size: 16px;
+    color: #555; /* 调整值颜色 */
+    /* 其他值样式 */
+}
+
+.detail-item .arrow {
+    font-size: 16px;
+    color: #888; /* 调整箭头颜色 */
+    /* 其他箭头样式 */
+}
+
+.email-address-section {
+    /* 样式待添加 */
+}
+
+.email-address-section .label {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    /* 其他标签样式 */
+}
+
+.email-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* 其他样式 */
+}
+
+.email-info img {
+    width: 24px;
+    height: 24px;
+    /* 其他图标样式 */
+}
+
+.email-info .email-value {
+    font-size: 16px;
+    /* 其他邮箱值样式 */
+}
+
+.email-info .time {
+    font-size: 14px;
+    color: #888; /* 调整时间颜色 */
+    /* 其他时间样式 */
+}
+
+.add-email {
+    font-size: 16px;
+    color: #4182F9; /* 调整链接颜色 */
+    margin-top: 10px;
+    cursor: pointer;
+    /* 其他样式 */
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 按钮之间的垂直间距 */
+    width: 80%; /* 调整宽度 */
+    margin-top: 30px; /* 调整与上方元素的间距 */
+    /* 其他样式 */
+}
+
+.action-button {
+    background-color: #ACACAC; /* 调整按钮背景颜色 */
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    /* 其他按钮样式 */
+}
+
+.my-main-content img {
+    display: block; /* 移除图片下方的额外空间 */
+    width: 130%; /* 将图片放大至1.3倍 */
+    height: auto;
+    margin-top: 0px; /* 向上移动5px */
+    margin-left: 0px; /* 向左侧移动5px */
+} 

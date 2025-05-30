@@ -1,0 +1,14 @@
+/* message.css */
+
+.message-main-content {
+    padding: 20px; /* 根据需要调整内边距 */
+    display: flex;
+    justify-content: center; /* 水平居中图片 */
+    align-items: flex-start; /* 图片顶部对齐 */
+}
+
+.message-main-content img {
+    display: block; /* 移除图片下方的额外空间 */
+    max-width: 100%; /* 确保图片不超过容器宽度 */
+    height: auto;
+} 

@@ -1,0 +1,18 @@
+/* seed.css */
+
+.seed-main-content {
+    padding: 20px; /* 根据需要调整内边距 */
+}
+
+.seed-images-stack {
+    display: flex;
+    flex-direction: column; /* 使图片上下排列 */
+    align-items: flex-start; /* 使图片左对齐 */
+    gap: 20px; /* 调整图片之间的垂直间距 */
+}
+
+.seed-images-stack img {
+    display: block; /* 移除图片下方的额外空间 */
+    max-width: 100%; /* 确保图片不超过容器宽度 */
+    height: auto;
+} 

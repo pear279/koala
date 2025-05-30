@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>种子背包页面</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="seed.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧导航栏 -->
+        <aside class="sidebar">
+            <div class="logo-area">
+                <img class="logo-img" src="../images/logo 1.png" alt="logo">
+                <span class="logo-text">Moodseed</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-item">首页</a>
+                <a href="forest.html" class="nav-item">我的森林</a>
+                <a href="story.html" class="nav-item">故事库</a>
+                <a href="seed.html" class="nav-item nav-item-active">我的种子</a>
+                <a href="message.html" class="nav-item">消息</a>
+                <a href="my.html" class="nav-item">我的</a>
+            </nav>
+            <div class="user-info">
+                <img class="user-avatar" src="../images/Mask group.jpg" alt="用户头像" style="width:60px;height:60px;border-radius:50%;margin-bottom:8px;">
+                <span class="user-name">Amanda</span>
+                <span class="user-email">alexara@gmail.com</span>
+            </div>
+        </aside>
+        <!-- 中间内容区 -->
+        <main class="center">
+            <!-- 进度条分组 -->
+            <div class="progress-group">
+                <!-- 进度条区 -->
+                <section class="progress-bar-area">
+                    <div class="progress-bar sun">
+                        <div class="progress-bar-content">
+                            <div class="progress-bar-inner"></div>
+                            <img class="progress-icon" src="../images/sun.png" alt="阳光">
+                        </div>
+                        <span class="progress-label">阳光50%</span>
+                    </div>
+                    <div class="progress-bar water">
+                        <div class="progress-bar-content">
+                            <div class="progress-bar-inner"></div>
+                            <img class="progress-icon" src="../images/water.png" alt="水">
+                        </div>
+                        <span class="progress-label">水60%</span>
+                    </div>
+                    <div class="progress-bar fertilizer">
+                        <div class="progress-bar-content">
+                            <div class="progress-bar-inner"></div>
+                            <img class="progress-icon" src="../images/fei.png" alt="肥料">
+                        </div>
+                        <span class="progress-label">肥料40%</span>
+                    </div>
+                </section>
+                <hr class="progress-divider">
+            </div>
+            <!-- 中间主要内容区域将在这里添加 -->
+            <div class="seed-main-content">
+                <div class="seed-images-stack">
+                    <img src="../images/story/seed1.png" alt="Seed 1">
+                    <img src="../images/story/seed2.png" alt="Seed 2">
+                </div>
+            </div>
+
+        </main>
+        <!-- 右侧对话区 -->
+        <aside class="chat-panel">
+            <div class="chat-toolbar">
+                <div class="toolbar-left">
+                    <div class="toolbar-item">
+                        <span class="toolbar-icon">＋</span>
+                        <span class="toolbar-text">新对话</span>
+                    </div>
+                    <div class="toolbar-item">
+                        <span class="toolbar-icon">💬</span>
+                        <span class="toolbar-text">聊天记录</span>
+                    </div>
+                </div>
+                <div class="toolbar-right">
+                    <div class="toolbar-item">
+                        <span class="toolbar-icon">⤢</span>
+                        <span class="toolbar-text">全屏</span>
+                    </div>
+                    <div class="toolbar-item">
+                        <span class="toolbar-icon">✕</span>
+                        <span class="toolbar-text">关闭</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-list">
+                <!-- AI消息1 -->
+                <div class="chat-row ai">
+                    <div class="chat-avatar-col">
+                        <img class="chat-avatar" src="../images/ENFJ.png" alt="AI头像">
+                        <div class="chat-identity">ENFJ</div>
+                    </div>
+                    <div class="chat-bubble-col">
+                        <div class="chat-bubble">
+                            今天有什么特别的心情想记录下来吗？可以是开心的瞬间，或是让你有些在意的小情绪~
+                        </div>
+                    </div>
+                </div>
+                <!-- 用户消息1 -->
+                <div class="chat-row user">
+                    <div class="chat-bubble-col">
+                        <div class="chat-bubble">
+                            早上通勤时看到路边的花开得很好，突然觉得心情明亮起来了
+                        </div>
+                    </div>
+                    <div class="chat-avatar-col">
+                        <img class="chat-avatar" src="../images/Mask group.jpg" alt="用户头像">
+                        <div class="chat-identity">用户</div>
+                    </div>
+                </div>
+                <!-- AI消息2（带标签） -->
+                <div class="chat-row ai">
+                    <div class="chat-avatar-col">
+                        <img class="chat-avatar" src="../images/ENFJ.png" alt="AI头像">
+                        <div class="chat-identity">ENFJ</div>
+                    </div>
+                    <div class="chat-bubble-col">
+                        <div class="chat-tags">
+                            <span class="chat-tag">#愉悦</span>
+                            <span class="chat-tag">#温暖</span>
+                            <span class="chat-tag">#小确幸</span>
+                        </div>
+                        <div class="chat-bubble">
+                            你的感受真美好呢！那些绽放的花朵就像城市悄悄准备的惊喜，用一抹色彩温柔地打断了忙碌的节奏。这种不期而遇的治愈感，像是生活在对你说"今天也请好好享受哦"。要记得把这份心动存在心里，它会在某个阴天悄悄发芽的~自然的美总是能悄悄治愈我们呢~要试试给这种心情取个名字吗？比如「樱花加油站」？
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <button class="seed-btn">
+                    <span class="seed-icon">🌱</span>
+                    转化成种子
+                </button>
+                <div class="input-box">
+                    <textarea class="input-text" placeholder="记录你的心事..."></textarea>
+                    <button class="speak-btn">点击说话</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+    <div class="background"></div>
+</body>
+</html> 
