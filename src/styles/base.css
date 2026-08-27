@@ -1,0 +1,56 @@
+@import './tokens.css';
+
+/* 基础重置 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family-base);
+  color: var(--color-text);
+  /* 背景图铺满视口，随页面固定 */
+  background: url('/images/bg-main.jpg') no-repeat center center / cover;
+  background-attachment: fixed;
+}
+
+#app {
+  min-height: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* 中文排版：避免 break-all 在标点处乱断 */
+p,
+div,
+span {
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+/* 键盘可达性：为所有可聚焦元素提供清晰焦点环 */
+a:focus-visible,
+button:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-primary-lightest);
+  outline-offset: 2px;
+}
+
+/* 区块标题：各页面共用 */
+.section-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 400;
+  color: var(--color-white);
+  margin: 0 0 var(--space-5);
+  text-shadow: 0 2px 8px rgba(69, 51, 103, 0.6);
+}
