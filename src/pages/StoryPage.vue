@@ -4,8 +4,16 @@
  * 由设计稿截图 public/images/story/community-1.png、community-2.png 还原为真实 DOM。
  * 上半部分为心情日历（抽成 MoodCalendar 组件），下半部分为社区入口卡。
  */
-import { calendarRecords, calendarView, communityEntries } from '@/data/mock'
+import { ref } from 'vue'
+import { calendarView, communityEntries, createCalendarRecords } from '@/data/mock'
 import MoodCalendar from '@/components/MoodCalendar.vue'
+
+/** 日历默认展示当前月，翻月时按月加载对应记录 */
+const records = ref({})
+
+function loadRecords(month) {
+  records.value = createCalendarRecords(month)
+}
 </script>
 
 <template>
@@ -13,11 +21,10 @@ import MoodCalendar from '@/components/MoodCalendar.vue'
     <section>
       <h2 class="section-title">心情日历</h2>
       <MoodCalendar
-        :default-month="calendarView.month"
-        :highlight-date="calendarView.today"
-        :records="calendarRecords"
+        :records="records"
         :slot-rows="calendarView.slotRows"
         :record-icon="calendarView.recordIcon"
+        @month-change="loadRecords"
       />
     </section>
 

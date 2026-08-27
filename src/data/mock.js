@@ -96,31 +96,45 @@ export const plants = [
   { id: 8, name: '待解锁', image: '/images/plant/8.png', unlocked: false },
 ]
 
-/** 心情日历默认展示月份与高亮日期（对齐设计稿的 2025 年 5 月 / 18 日） */
+/** 心情日历展示配置：月份与高亮日期留给组件取系统当前时间 */
 export const calendarView = {
-  month: '2025-05',
-  today: '2025-05-18',
   /** 每周展示的记录槽位行数 */
   slotRows: 3,
   recordIcon: '/images/story/seed-alt.png',
 }
 
 /**
- * 心情记录数：key 为日期，value 为当日记录条数（0-3）。
- * 原型阶段的占位数据，接入接口后由「按月查询记录」的结果替换。
+ * 生成某月的心情记录数（含前后补位周所属日期）。
+ * 原型阶段的占位数据：用日期派生的确定性取值，保证同一天每次渲染结果一致，
+ * 接入接口后替换为「按月查询记录」的返回值即可。
+ *
+ * @param {string} month 目标月份，格式 YYYY-MM
+ * @returns {Record<string, number>} key 为 YYYY-MM-DD，value 为当日记录条数
  */
-export const calendarRecords = {
-  '2025-04-28': 3, '2025-04-29': 1, '2025-04-30': 2,
-  '2025-05-01': 3, '2025-05-02': 3, '2025-05-03': 2, '2025-05-04': 3,
-  '2025-05-05': 3, '2025-05-06': 3, '2025-05-07': 2, '2025-05-08': 2,
-  '2025-05-09': 2, '2025-05-10': 3, '2025-05-11': 3,
-  '2025-05-12': 3, '2025-05-13': 2, '2025-05-14': 2, '2025-05-15': 1,
-  '2025-05-16': 3, '2025-05-17': 3, '2025-05-18': 2,
-  '2025-05-19': 3, '2025-05-20': 3, '2025-05-21': 3, '2025-05-22': 3,
-  '2025-05-23': 3, '2025-05-24': 2, '2025-05-25': 2,
-  '2025-05-26': 3, '2025-05-27': 2, '2025-05-28': 3, '2025-05-29': 2,
-  '2025-05-30': 1, '2025-05-31': 3,
-  '2025-06-01': 3,
+export function createCalendarRecords(month) {
+  const matched = /^(\d{4})-(\d{2})$/.exec(String(month ?? ''))
+  if (!matched) return {}
+
+  const year = Number(matched[1])
+  const monthIndex = Number(matched[2]) - 1
+  const records = {}
+
+  // 覆盖目标月及前后各一周，供日历补位格也能显示记录
+  const start = new Date(year, monthIndex, -6)
+  const end = new Date(year, monthIndex + 1, 7)
+
+  for (const cursor = start; cursor <= end; cursor.setDate(cursor.getDate() + 1)) {
+    const y = cursor.getFullYear()
+    const m = cursor.getMonth() + 1
+    const d = cursor.getDate()
+    // 简单散列：让记录数在 0-3 间稳定分布
+    const count = (y * 31 + m * 7 + d * 13) % 4
+    if (count > 0) {
+      records[`${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`] = count
+    }
+  }
+
+  return records
 }
 
 /** 故事库社区入口 */

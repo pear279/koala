@@ -5,11 +5,11 @@
  * 结构：月份导航条 + 周表头 + 每周「日期行 + N 行紫色记录条带」，
  * 有记录的日期在条带上显示一枚种子图标，条数决定占用几行槽位。
  */
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 
 const props = defineProps({
-  /** 初始展示月份，格式 YYYY-MM */
-  defaultMonth: { type: String, required: true },
+  /** 初始展示月份，格式 YYYY-MM；留空则展示当前月 */
+  defaultMonth: { type: String, default: '' },
   /** 高亮日期（通常是「今天」），格式 YYYY-MM-DD */
   highlightDate: { type: String, default: '' },
   /** 记录条数映射，key 为 YYYY-MM-DD，value 为当日记录数 */
@@ -20,9 +20,12 @@ const props = defineProps({
   recordIcon: { type: String, required: true },
 })
 
+/** 月份切换后向外通知，父组件据此加载对应月份的记录 */
+const emit = defineEmits(['month-change'])
+
 const WEEKDAYS = ['周日', '周一', '周二', '周三', '周四', '周五', '周六']
 
-/** 解析 YYYY-MM；非法输入回落到当前月，避免界面出现 NaN */
+/** 解析 YYYY-MM；留空或非法输入回落到当前月，避免界面出现 NaN */
 function parseMonth(value) {
   const matched = /^(\d{4})-(\d{2})$/.exec(String(value ?? ''))
   if (!matched) {
@@ -34,12 +37,23 @@ function parseMonth(value) {
 
 const cursor = ref(parseMonth(props.defaultMonth))
 
+/** 当前月份，用于判断「回到本月」按钮是否需要展示 */
+const nowMonth = parseMonth('')
+
 const title = computed(() => `${cursor.value.month}月, ${cursor.value.year}`)
+
+const isCurrentMonth = computed(
+  () => cursor.value.year === nowMonth.year && cursor.value.month === nowMonth.month,
+)
 
 /** 用 Date 做月份进位，省去 12 → 1 的边界判断 */
 function shiftMonth(step) {
   const next = new Date(cursor.value.year, cursor.value.month - 1 + step, 1)
   cursor.value = { year: next.getFullYear(), month: next.getMonth() + 1 }
+}
+
+function backToToday() {
+  cursor.value = { ...nowMonth }
 }
 
 function toDateKey(year, month, day) {
@@ -52,6 +66,22 @@ function readRecordCount(key) {
   const count = Number(props.records[key])
   return Number.isFinite(count) && count > 0 ? count : 0
 }
+
+/** 高亮日期：未显式传入时取系统当天 */
+const highlightKey = computed(() => {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(props.highlightDate)) return props.highlightDate
+  const now = new Date()
+  return toDateKey(now.getFullYear(), now.getMonth() + 1, now.getDate())
+})
+
+// 挂载即触发一次，父组件无需另外初始化当前月数据
+watch(
+  cursor,
+  ({ year, month }) => {
+    emit('month-change', `${year}-${String(month).padStart(2, '0')}`)
+  },
+  { immediate: true },
+)
 
 /**
  * 按真实历法排布：首尾补齐上/下月日期，凑成 7 的倍数后按周切分。
@@ -74,7 +104,7 @@ const weeks = computed(() => {
       day: date.getDate(),
       inMonth: date.getMonth() + 1 === month && date.getFullYear() === year,
       count: readRecordCount(key),
-      isHighlighted: key === props.highlightDate,
+      isHighlighted: key === highlightKey.value,
     })
   }
 
@@ -95,6 +125,15 @@ const weeks = computed(() => {
       <span class="cal-title" aria-live="polite">{{ title }}</span>
       <button class="cal-nav" type="button" aria-label="下一个月" @click="shiftMonth(1)">
         <span aria-hidden="true">›</span>
+      </button>
+      <!-- 翻月后提供回到本月的入口，避免用户手动翻回来 -->
+      <button
+        v-if="!isCurrentMonth"
+        class="cal-today"
+        type="button"
+        @click="backToToday"
+      >
+        回到本月
       </button>
     </header>
 
@@ -136,12 +175,33 @@ const weeks = computed(() => {
 
 /* 月份导航条 */
 .cal-header {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-6);
   padding: var(--space-4);
   background: var(--color-primary-lightest);
+}
+
+/* 绝对定位，保证月份标题始终居中 */
+.cal-today {
+  position: absolute;
+  right: var(--space-4);
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-primary-darkest);
+  font-size: var(--font-size-sm);
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity var(--transition-base);
+}
+
+.cal-today:hover {
+  opacity: 0.75;
 }
 
 .cal-nav {
