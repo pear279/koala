@@ -17,6 +17,14 @@
   --color-text-subtle: #999;
   --color-divider: #ccc;
 
+  /* 强调色与置灰态（个人资料页） */
+  --color-accent: #4182f9;
+  --color-accent-soft: #eaf1fe;
+  --color-disabled: #cfcfcf;
+  --color-action: #acacac;
+  --color-field-bg: #f7f8fa;
+  --color-field-border: #e8eaed;
+
   /* 资源条颜色 */
   --color-sun-from: #e08b3d;
   --color-sun-to: #ffe3c0;

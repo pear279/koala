@@ -62,9 +62,9 @@ npm run preview  # 预览构建产物
 | `/story` | 故事库 | **仍为设计稿截图，待替换** |
 | `/seed` | 我的种子 | **仍为设计稿截图，待替换** |
 | `/message` | 消息 | **仍为设计稿截图，待替换** |
-| `/my` | 我的 | **仍为设计稿截图，待替换** |
+| `/my` | 我的（个人资料） | 已还原为真实表单，可编辑 |
 
-标注「待替换」的页面目前用整张 PNG 呈现，无法交互、无法读屏、无法改文案，是后续迭代的首要目标。`archive/prototype-html/my.css` 中已备好 `.profile-details` / `.detail-item` / `.action-buttons` 等样式、仅缺 DOM 结构，是成本最低的切入点。
+标注「待替换」的页面目前用整张 PNG 呈现，无法交互、无法读屏、无法改文案，是后续迭代的首要目标。
 
 ## 适配范围
 
@@ -94,7 +94,7 @@ meta: { showResourceBar: false, showChatPanel: false }
 
 ## 后续计划
 
-1. 将 4 个截图页替换为真实 DOM，从 `/my` 开始
+1. 将剩余 3 个截图页替换为真实 DOM（`/story`、`/seed`、`/message`）
 2. 森林页培育进度改为数据驱动组件
 3. 引入 Prettier + Stylelint 与 CI 构建检查
 4. 接入真实 AI 对话（需先搭建服务端代理层）
