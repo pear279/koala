@@ -3,6 +3,7 @@
  * 我的森林：植物图鉴 + 培育进度
  */
 import { plants } from '@/data/mock'
+import GrowthProgress from '@/components/GrowthProgress.vue'
 </script>
 
 <template>
@@ -24,7 +25,7 @@ import { plants } from '@/data/mock'
 
     <section>
       <h2 class="section-title">培育进度</h2>
-      <img class="growth-img" src="/images/plant/growth-progress-0.png" alt="植物培育进度">
+      <GrowthProgress />
     </section>
   </div>
 </template>
@@ -64,11 +65,5 @@ import { plants } from '@/data/mock'
   margin: var(--space-2) 0 0;
   font-size: var(--font-size-base);
   text-shadow: 0 2px 6px rgba(69, 51, 103, 0.6);
-}
-
-.growth-img {
-  width: 100%;
-  height: auto;
-  display: block;
 }
 </style>
