@@ -39,15 +39,19 @@ npm run preview  # 预览构建产物
 │   ├── router/index.js     # 6 条路由 + 兜底重定向
 │   ├── config/navigation.js# 导航单一数据源
 │   ├── data/mock.js        # 演示数据，接真实接口时整体替换
+│   ├── utils/datetime.js   # 相对时间格式化
 │   ├── styles/
-│   │   ├── tokens.css      # 设计令牌 + 响应式断点
+│   │   ├── tokens.css      # 设计令牌
 │   │   └── base.css        # 全局基础样式
 │   ├── components/
 │   │   ├── AppLayout.vue   # 三栏布局壳
 │   │   ├── AppSidebar.vue  # 左侧导航
 │   │   ├── ResourceBar.vue # 养成资源进度条
-│   │   └── ChatPanel.vue   # 右侧对话面板（可交互）
+│   │   ├── ChatPanel.vue   # 右侧对话面板（可交互）
+│   │   ├── MoodCalendar.vue# 心情日历
+│   │   └── GrowthProgress.vue # 培育进度
 │   └── pages/              # 6 个页面
+├── references/             # 项目方案与优化规划文档，不参与构建
 └── archive/                # 早期原型，仅作视觉参考，不参与构建
     ├── prototype-html/     # Figma 还原稿（6 页静态 HTML）
     └── frontend-demo-1/    # 早期交互草稿
@@ -55,22 +59,32 @@ npm run preview  # 预览构建产物
 
 ## 页面与完成度
 
+6 个页面已全部脱离设计稿截图，均为真实 DOM 结构。
+
 | 路由 | 页面 | 状态 |
 | --- | --- | --- |
 | `/` | 首页（幸运花语 + AI 性格） | 已组件化 |
-| `/forest` | 我的森林（植物图鉴 + 培育进度） | 图鉴已数据驱动，进度条仍为截图 |
-| `/story` | 故事库 | **仍为设计稿截图，待替换** |
-| `/seed` | 我的种子 | **仍为设计稿截图，待替换** |
-| `/message` | 消息 | **仍为设计稿截图，待替换** |
-| `/my` | 我的（个人资料） | 已还原为真实表单，可编辑 |
+| `/forest` | 我的森林（植物图鉴 + 培育进度） | 已数据驱动 |
+| `/story` | 故事库（心情日历 + 社区入口） | 已还原，日历跟随系统时间 |
+| `/seed` | 我的种子（记录列表 + 入口卡 + 模式卡） | 已还原 |
+| `/message` | 消息（分组列表） | 已还原 |
+| `/my` | 我的（个人资料） | 已还原，可编辑 |
 
-标注「待替换」的页面目前用整张 PNG 呈现，无法交互、无法读屏、无法改文案，是后续迭代的首要目标。
+页面按钮多为占位，尚无真实行为；数据均来自 `src/data/mock.js`。
 
 ## 适配范围
 
-桌面优先，**1024px 及以上可用**，不支持移动端。侧栏宽度在 1600px / 1200px 两处断点等比收窄，保证中间内容区不被挤压。
+桌面优先，**900px 及以上可用**，不支持移动端。
 
-实测中间内容区宽度：1920px → 1220px，1440px → 880px，1024px → 544px，三档均无横向滚动条。
+三栏宽度使用 `clamp()` 随视口平滑缩放，无断点跳变：
+
+| 变量 | 取值 |
+| --- | --- |
+| `--sidebar-width` | `clamp(148px, 13vw, 200px)` |
+| `--chat-panel-width` | `clamp(280px, 22vw, 380px)` |
+| `--content-gutter` | `clamp(20px, 3vw, 64px)` |
+
+「我的」页为全宽布局（无两侧栏），卡片限宽 1180px 居中，内部使用容器查询（`container-type: inline-size` + `cqi`）随卡片宽度缩放。
 
 ## 开发约定
 
@@ -94,7 +108,11 @@ meta: { showResourceBar: false, showChatPanel: false }
 
 ## 后续计划
 
-1. 将剩余 3 个截图页替换为真实 DOM（`/story`、`/seed`、`/message`）
-2. 森林页培育进度改为数据驱动组件
-3. 引入 Prettier + Stylelint 与 CI 构建检查
-4. 接入真实 AI 对话（需先搭建服务端代理层）
+详见 [references/项目优化文档.md](./references/项目优化文档.md)，其中包含现状评估、技术债清单、五阶段优化规划与待确认事项。
+
+近期优先项：
+
+1. 引入 Pinia 与 `api/` 层，打通数据链路（阻塞后续全部交互功能）
+2. 补 ESLint / Prettier / Stylelint / Vitest 与 CI 检查
+3. 实现核心交互闭环：养护 → 资源 → 成长
+4. 移动端适配与图片 WebP 化
