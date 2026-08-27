@@ -50,7 +50,7 @@ const showChatPanel = computed(() => route.meta.showChatPanel !== false)
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  padding: var(--space-7) var(--content-gutter) 0;
+  padding: clamp(var(--space-4), 2.5vh, var(--space-7)) var(--content-gutter) 0;
 }
 
 .app-content {

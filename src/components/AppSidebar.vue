@@ -44,31 +44,32 @@ import { currentUser } from '@/data/mock'
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: var(--space-7) var(--space-4) 0;
+  padding: var(--space-5) var(--space-3) var(--space-4);
+  /* 极矮视口下允许内部滚动，避免用户信息被挤出可视区 */
+  overflow-y: auto;
 }
 
-/* Logo 区 */
+/* Logo 区：栏宽收窄时改为纵向排列，避免图标与文字互相挤压 */
 .logo-area {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: var(--space-1);
   width: 100%;
-  margin-bottom: var(--space-7);
+  margin-bottom: var(--space-5);
 }
 
 .logo-img {
-  width: 72px;
-  height: 72px;
+  width: var(--sidebar-logo-size);
+  height: var(--sidebar-logo-size);
   object-fit: contain;
-  margin-right: var(--space-3);
 }
 
 /* 渐变文字：background-clip 裁切实现 */
 .logo-text {
-  font-size: 22px;
+  font-size: var(--sidebar-brand-size);
   font-weight: bold;
-  letter-spacing: 2px;
-  padding: var(--space-2) var(--space-5);
-  border-radius: var(--radius-pill);
+  letter-spacing: 1px;
   background-image: linear-gradient(
     90deg,
     var(--color-primary) 0%,
@@ -86,9 +87,9 @@ import { currentUser } from '@/data/mock'
 .nav {
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
+  gap: var(--sidebar-nav-gap);
   width: 100%;
-  margin-top: var(--space-6);
+  margin-top: var(--space-3);
 }
 
 .nav-item {
@@ -96,12 +97,13 @@ import { currentUser } from '@/data/mock'
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: var(--space-3) 0;
+  padding: var(--space-2) var(--space-2);
   color: var(--color-white);
-  font-size: var(--font-size-xl);
+  font-size: var(--sidebar-nav-size);
   font-weight: bold;
   text-decoration: none;
   text-align: center;
+  white-space: nowrap;
   border-radius: var(--radius-pill);
   background: linear-gradient(90deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
   box-shadow: 0 2px 12px rgba(188, 164, 228, 0.2);
@@ -127,25 +129,37 @@ import { currentUser } from '@/data/mock'
 /* 用户信息：贴底 */
 .user-info {
   margin-top: auto;
-  margin-bottom: 60px;
+  padding-top: var(--space-5);
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   color: var(--color-white);
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-sm);
   text-align: center;
 }
 
 .user-avatar {
-  width: 60px;
-  height: 60px;
+  width: var(--sidebar-avatar-size);
+  height: var(--sidebar-avatar-size);
   border-radius: var(--radius-full);
   object-fit: cover;
   margin-bottom: var(--space-2);
 }
 
+.user-name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 邮箱可能较长，允许在任意字符处断行，避免溢出侧栏 */
 .user-email {
-  font-size: var(--font-size-sm);
+  max-width: 100%;
+  font-size: var(--font-size-xs);
+  line-height: 1.4;
   opacity: 0.85;
+  overflow-wrap: anywhere;
 }
 </style>

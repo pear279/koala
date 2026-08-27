@@ -69,11 +69,21 @@
   --shadow-md: 0 2px 8px rgba(188, 164, 228, 0.2);
   --shadow-lg: 0 4px 24px rgba(0, 0, 0, 0.12);
 
-  /* 布局尺寸 */
+  /* 布局尺寸
+   * 三栏宽度用 clamp 随视口平滑缩放：避免断点处的跳变，
+   * 也让侧栏在 1080~1440 这类常见笔记本宽度上不至于挤占内容区。
+   */
   --layout-max-width: 1920px;
-  --layout-min-width: 1024px;
-  --sidebar-width: 280px;
-  --chat-panel-width: 420px;
+  --layout-min-width: 900px;
+  --sidebar-width: clamp(148px, 13vw, 200px);
+  --chat-panel-width: clamp(280px, 22vw, 380px);
+
+  /* 侧边栏内部尺寸：与栏宽同步缩放，避免栏收窄后文字/头像溢出 */
+  --sidebar-logo-size: clamp(30px, 2.9vw, 44px);
+  --sidebar-brand-size: clamp(14px, 1.15vw, 18px);
+  --sidebar-nav-size: clamp(13px, 1.05vw, 16px);
+  --sidebar-nav-gap: clamp(8px, 1.1vh, 16px);
+  --sidebar-avatar-size: clamp(34px, 2.9vw, 48px);
 
   /* 字体 */
   --font-family-base: 'Microsoft YaHei', 'PingFang SC', Inter, Arial, sans-serif;
@@ -82,25 +92,15 @@
   --transition-base: 0.2s ease;
 
   /* 中间内容区左右留白 */
-  --content-gutter: 80px;
+  --content-gutter: clamp(20px, 3vw, 64px);
 }
 
 /**
- * 窄屏断点：等比收窄两侧固定栏，避免中间内容区被挤到不可用宽度。
- * 侧栏尺寸以变量形式定义，组件无需感知断点。
+ * 窄屏断点：仅在很窄的视口进一步压缩对话面板，
+ * 三栏基础宽度已由 clamp 随视口平滑缩放，此处不再重复定义。
  */
-@media (max-width: 1600px) {
+@media (max-width: 1100px) {
   :root {
-    --sidebar-width: 220px;
-    --chat-panel-width: 340px;
-    --content-gutter: 40px;
-  }
-}
-
-@media (max-width: 1200px) {
-  :root {
-    --sidebar-width: 180px;
-    --chat-panel-width: 300px;
-    --content-gutter: 24px;
+    --chat-panel-width: clamp(240px, 24vw, 300px);
   }
 }

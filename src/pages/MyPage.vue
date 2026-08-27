@@ -167,19 +167,24 @@ function addEmail() {
 <style scoped>
 /* 该页为白底卡片，与全站紫色玻璃风格不同，遵循设计稿 */
 .my-page {
+  /* 该页为全宽布局（无两侧栏），限宽居中避免表单被拉得过长 */
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto var(--space-7);
   background: var(--color-white);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
-  margin-bottom: var(--space-7);
+  /* 内部尺寸随卡片宽度缩放，而非跟随视口，避免受两侧栏宽干扰 */
+  container-type: inline-size;
 }
 
 /* 顶栏 */
 .topbar {
   display: flex;
   align-items: center;
-  gap: var(--space-5);
-  padding: var(--space-4) var(--space-6);
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-5);
 }
 
 .topbar-date {
@@ -190,6 +195,7 @@ function addEmail() {
 
 .topbar-search {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,8 +207,11 @@ function addEmail() {
   font-size: var(--font-size-md);
 }
 
+/* 输入框随可用空间伸缩，不再定宽 140px */
 .search-input {
-  width: 140px;
+  width: 100%;
+  max-width: 220px;
+  min-width: 0;
   border: none;
   outline: none;
   background: transparent;
@@ -228,8 +237,8 @@ function addEmail() {
 }
 
 .topbar-avatar {
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 3cqi, 40px);
+  height: clamp(32px, 3cqi, 40px);
   border-radius: var(--radius-md);
   object-fit: cover;
 }
@@ -239,7 +248,7 @@ function addEmail() {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 56px;
+  padding: var(--space-3) var(--space-4);
   background: linear-gradient(
     90deg,
     #7aa5f0 0%,
@@ -252,37 +261,40 @@ function addEmail() {
 .page-banner-title {
   margin: 0;
   color: var(--color-white);
-  font-size: var(--font-size-xl);
+  font-size: clamp(var(--font-size-md), 2cqi, var(--font-size-xl));
   font-weight: 500;
   letter-spacing: 2px;
 }
 
-/* 主体：左表单 / 右操作，窄屏自动堆叠 */
+/* 主体：左表单 / 右操作两列。
+ * 用 grid 替代 flex-wrap，让两列按比例分配宽度而非各自 flex-basis 撑开；
+ * 容器查询在窄卡片下切换为单列，结构与设计稿保持一致。
+ */
 .profile-body {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-7);
-  padding: var(--space-6);
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(var(--space-5), 4cqi, var(--space-7));
+  padding: clamp(var(--space-4), 3cqi, var(--space-6));
+  align-items: start;
 }
 
 .profile-left {
-  flex: 1 1 380px;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
+  gap: clamp(var(--space-4), 3cqi, var(--space-6));
 }
 
 /* 头像 + 姓名 + 编辑按钮 */
 .profile-section {
   display: flex;
   align-items: center;
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
 
 .profile-avatar img {
-  width: 72px;
-  height: 72px;
+  width: clamp(48px, 6cqi, 72px);
+  height: clamp(48px, 6cqi, 72px);
   border-radius: var(--radius-full);
   object-fit: cover;
 }
@@ -298,11 +310,15 @@ function addEmail() {
   font-size: var(--font-size-md);
   font-weight: bold;
   color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profile-info .email {
   font-size: var(--font-size-sm);
   color: var(--color-text-subtle);
+  overflow-wrap: anywhere;
 }
 
 .edit-button {
@@ -445,18 +461,20 @@ function addEmail() {
   cursor: pointer;
 }
 
-/* 右列操作按钮 */
+/* 右列操作按钮
+ * 顶部留白与左列「头像行」高度对齐（原为写死的 56px），
+ * 随头像尺寸一起缩放，窄卡片下不会出现悬空的大片空白。
+ */
 .action-buttons {
-  flex: 1 1 320px;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-5);
-  padding-top: 56px;
+  gap: clamp(var(--space-3), 2.5cqi, var(--space-5));
+  padding-top: calc(clamp(48px, 6cqi, 72px) + var(--space-4));
 }
 
 .action-button {
-  padding: var(--space-4);
+  padding: clamp(var(--space-3), 2cqi, var(--space-4));
   border: none;
   border-radius: var(--radius-md);
   background: var(--color-action);
@@ -475,5 +493,16 @@ function addEmail() {
 .action-button.is-disabled {
   background: var(--color-disabled);
   cursor: not-allowed;
+}
+
+/* 窄卡片：两列改单列，右列去掉对齐留白 */
+@container (max-width: 720px) {
+  .profile-body {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    padding-top: 0;
+  }
 }
 </style>
