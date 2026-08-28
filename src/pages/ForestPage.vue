@@ -2,8 +2,12 @@
 /**
  * 我的森林：植物图鉴 + 培育进度
  */
-import { plants } from '@/data/mock'
+import { onMounted } from 'vue'
+import { useForestStore } from '@/stores/forest'
 import GrowthProgress from '@/components/GrowthProgress.vue'
+
+const forestStore = useForestStore()
+onMounted(() => forestStore.load())
 </script>
 
 <template>
@@ -12,7 +16,7 @@ import GrowthProgress from '@/components/GrowthProgress.vue'
       <h2 class="section-title">植物图鉴</h2>
       <div class="plant-grid">
         <div
-          v-for="plant in plants"
+          v-for="plant in forestStore.plants"
           :key="plant.id"
           class="plant-item"
           :class="{ locked: !plant.unlocked }"

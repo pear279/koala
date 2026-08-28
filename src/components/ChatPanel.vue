@@ -6,10 +6,12 @@
  * 安全约束：消息内容一律通过 Vue 文本插值（{{ }}）渲染，等价于 textContent。
  * 后续接入真实 AI 回复时，同样禁止使用 v-html —— AI 输出属于不可信输入。
  */
-import { nextTick, ref } from 'vue'
-import { initialMessages } from '@/data/mock'
+import { nextTick, onMounted, ref, watch } from 'vue'
+import { useChatStore } from '@/stores/chat'
 
-const messages = ref([...initialMessages])
+const chatStore = useChatStore()
+onMounted(() => chatStore.load())
+
 const draft = ref('')
 const chatListRef = ref(null)
 
@@ -22,27 +24,18 @@ async function scrollToBottom() {
   }
 }
 
+watch(() => chatStore.messages.length, scrollToBottom)
+
 /** 发送用户消息 */
 function sendMessage() {
-  const text = draft.value.trim()
-  if (!text) return
-
-  messages.value.push({
-    id: Date.now(),
-    role: 'user',
-    identity: '用户',
-    avatar: '/images/avatar-user.jpg',
-    text,
-    tags: [],
-  })
-
+  if (!draft.value.trim()) return
+  chatStore.sendMessage(draft.value)
   draft.value = ''
-  scrollToBottom()
 }
 
 /** 开启新对话：清空当前会话 */
 function startNewChat() {
-  messages.value = []
+  chatStore.startNewChat()
   draft.value = ''
 }
 </script>
@@ -73,12 +66,12 @@ function startNewChat() {
     </div>
 
     <div ref="chatListRef" class="chat-list" aria-live="polite">
-      <p v-if="messages.length === 0" class="chat-empty">
+      <p v-if="chatStore.messages.length === 0" class="chat-empty">
         新的开始，说点什么吧~
       </p>
 
       <div
-        v-for="message in messages"
+        v-for="message in chatStore.messages"
         :key="message.id"
         class="chat-row"
         :class="message.role"

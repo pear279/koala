@@ -2,18 +2,22 @@
 /**
  * 首页：今日幸运花语 + AI 性格
  */
-import { luckyFlower, personalities } from '@/data/mock'
+import { onMounted } from 'vue'
+import { useHomeStore } from '@/stores/home'
+
+const homeStore = useHomeStore()
+onMounted(() => homeStore.load())
 </script>
 
 <template>
   <div class="home-page">
     <!-- 今日幸运花语 -->
-    <section class="lucky-flower">
+    <section v-if="homeStore.luckyFlower" class="lucky-flower">
       <h2 class="section-title">今日幸运花语</h2>
       <div class="flower-card">
         <img class="butterfly-img" src="/images/butterfly-1.png" alt="">
-        <p class="flower-quote">“{{ luckyFlower.quote }}”</p>
-        <p class="flower-name">{{ luckyFlower.name }}</p>
+        <p class="flower-quote">“{{ homeStore.luckyFlower.quote }}”</p>
+        <p class="flower-name">{{ homeStore.luckyFlower.name }}</p>
       </div>
     </section>
 
@@ -21,7 +25,7 @@ import { luckyFlower, personalities } from '@/data/mock'
     <section class="ai-personality">
       <h2 class="section-title">AI性格</h2>
       <div class="personality-list">
-        <div v-for="item in personalities" :key="item.code" class="personality-item">
+        <div v-for="item in homeStore.personalities" :key="item.code" class="personality-item">
           <img :src="item.avatar" :alt="`${item.code} 形象`">
           <p class="personality-code">{{ item.code }}</p>
           <p class="personality-trait">{{ item.trait }}</p>

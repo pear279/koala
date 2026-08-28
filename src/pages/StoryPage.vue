@@ -4,26 +4,27 @@
  * 由设计稿截图 public/images/story/community-1.png、community-2.png 还原为真实 DOM。
  * 上半部分为心情日历（抽成 MoodCalendar 组件），下半部分为社区入口卡。
  */
-import { ref } from 'vue'
-import { calendarView, communityEntries, createCalendarRecords } from '@/data/mock'
+import { onMounted } from 'vue'
+import { useStoryStore } from '@/stores/story'
 import MoodCalendar from '@/components/MoodCalendar.vue'
 
-/** 日历默认展示当前月，翻月时按月加载对应记录 */
-const records = ref({})
+const storyStore = useStoryStore()
+onMounted(() => storyStore.load())
 
+/** 日历默认展示当前月，翻月时按月加载对应记录 */
 function loadRecords(month) {
-  records.value = createCalendarRecords(month)
+  storyStore.loadRecords(month)
 }
 </script>
 
 <template>
   <div class="story-page">
-    <section>
+    <section v-if="storyStore.calendarView">
       <h2 class="section-title">心情日历</h2>
       <MoodCalendar
-        :records="records"
-        :slot-rows="calendarView.slotRows"
-        :record-icon="calendarView.recordIcon"
+        :records="storyStore.records"
+        :slot-rows="storyStore.calendarView.slotRows"
+        :record-icon="storyStore.calendarView.recordIcon"
         @month-change="loadRecords"
       />
     </section>
@@ -34,7 +35,7 @@ function loadRecords(month) {
         <!-- 未配置目标路由的入口渲染为 div，避免出现无效链接 -->
         <component
           :is="entry.to ? 'RouterLink' : 'div'"
-          v-for="entry in communityEntries"
+          v-for="entry in storyStore.communityEntries"
           :key="entry.key"
           class="community-card"
           :to="entry.to || undefined"

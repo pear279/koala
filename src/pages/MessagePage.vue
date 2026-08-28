@@ -5,14 +5,17 @@
  * 三组消息之间用留白分隔（对齐截图），每条为「类型徽章 + 文案 + 相对时间」。
  * 徽章宽度随文字自适应，与截图中长短不一的胶囊一致。
  */
-import { computed } from 'vue'
-import { messageGroups } from '@/data/mock'
+import { computed, onMounted } from 'vue'
+import { useMessageStore } from '@/stores/message'
 import { formatRelativeTime } from '@/utils/datetime'
+
+const messageStore = useMessageStore()
+onMounted(() => messageStore.load())
 
 /** 相对时间按当前时间推导，页面进入时结算一次 */
 const groups = computed(() => {
   const now = Date.now()
-  return messageGroups.map((group) => ({
+  return messageStore.groups.map((group) => ({
     ...group,
     items: group.items.map((item) => ({
       ...item,

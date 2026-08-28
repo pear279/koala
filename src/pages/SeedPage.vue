@@ -7,7 +7,11 @@
  * 入口卡插画由 seed1.png 裁切为独立素材（public/images/seed/），
  * 模式卡的白色线稿图标改为内联 SVG，可随字号缩放且不受位图分辨率限制。
  */
-import { seedEntries, seedModes, seedRecords } from '@/data/mock'
+import { onMounted } from 'vue'
+import { useSeedStore } from '@/stores/seed'
+
+const seedStore = useSeedStore()
+onMounted(() => seedStore.load())
 </script>
 
 <template>
@@ -19,7 +23,7 @@ import { seedEntries, seedModes, seedRecords } from '@/data/mock'
       <section class="record-panel">
         <h3 class="panel-title">相关记录</h3>
         <ul class="record-list">
-          <li v-for="record in seedRecords" :key="record.id" class="record-item">
+          <li v-for="record in seedStore.records" :key="record.id" class="record-item">
             <span class="record-tag">#{{ record.tag }}</span>
             <div class="record-card">
               <p class="record-text">{{ record.text }}</p>
@@ -31,7 +35,7 @@ import { seedEntries, seedModes, seedRecords } from '@/data/mock'
 
       <!-- 右侧入口卡 -->
       <div class="entry-column">
-        <button v-for="entry in seedEntries" :key="entry.key" class="entry-card" type="button">
+        <button v-for="entry in seedStore.entries" :key="entry.key" class="entry-card" type="button">
           <img class="entry-image" :src="entry.image" :alt="entry.title">
           <span class="entry-title">{{ entry.title }}</span>
         </button>
@@ -40,7 +44,7 @@ import { seedEntries, seedModes, seedRecords } from '@/data/mock'
 
     <!-- 底部模式卡 -->
     <div class="mode-grid">
-      <button v-for="mode in seedModes" :key="mode.key" class="mode-card" type="button">
+      <button v-for="mode in seedStore.modes" :key="mode.key" class="mode-card" type="button">
         <span class="mode-title">{{ mode.title }}</span>
 
         <!-- 合种：双手托起幼苗 -->

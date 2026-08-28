@@ -7,14 +7,20 @@
  * 资源条沿用设计稿切图（sun-alt / water-alt / fertilizer-alt），
  * 这三张图自带渐变与图标，作为装饰性背景使用。
  */
-import { growthActions, growthPlant, growthResourceButtons } from '@/data/mock'
+import { computed } from 'vue'
+import { useForestStore } from '@/stores/forest'
+
+const forestStore = useForestStore()
+const growthPlant = computed(() => forestStore.growthPlant)
+const growthActions = computed(() => forestStore.growthActions)
+const growthResourceButtons = computed(() => forestStore.growthResourceButtons)
 
 /** 进度百分比做区间收敛，避免异常数据把进度条撑破 */
-const progress = Math.min(100, Math.max(0, Number(growthPlant.progress) || 0))
+const progress = computed(() => Math.min(100, Math.max(0, Number(growthPlant.value?.progress) || 0)))
 </script>
 
 <template>
-  <div class="growth">
+  <div v-if="growthPlant" class="growth">
     <!-- 我的植物 -->
     <section class="growth-col growth-plant">
       <h3 class="growth-col-title">我的植物</h3>

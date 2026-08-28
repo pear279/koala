@@ -5,19 +5,23 @@
  * 类名沿用 archive/prototype-html/my.css 的语义，但布局按截图实际形态实现
  * （截图为「标签在上、控件在下」的表单，而非原 my.css 猜测的左右分列）。
  */
-import { computed, reactive, ref } from 'vue'
-import {
-  currentUser,
-  genderOptions,
-  profileActions,
-  userEmails,
-  userProfile,
-} from '@/data/mock'
+import { computed, onMounted, reactive, ref, watch } from 'vue'
+import { useUserStore } from '@/stores/user'
 
-/** 表单为本地草稿，编辑态才可修改 */
-const form = reactive({ ...userProfile })
+const userStore = useUserStore()
+onMounted(() => userStore.load())
+
+/** 表单为本地草稿，编辑态才可修改；待 store 数据到位后填充 */
+const form = reactive({ nickname: '', gender: '', phone: '' })
+watch(
+  () => userStore.profile,
+  (profile) => {
+    if (profile) Object.assign(form, profile)
+  },
+  { immediate: true },
+)
+
 const isEditing = ref(false)
-const emails = ref([...userEmails])
 
 /** 顶栏日期，跟随系统时间 */
 const today = computed(() =>
@@ -31,23 +35,10 @@ const today = computed(() =>
 function toggleEditing() {
   isEditing.value = !isEditing.value
 }
-
-/** 新增邮箱：原型阶段以当前主邮箱占位，接入接口后替换为真实流程 */
-function addEmail() {
-  const address = currentUser.email
-  // 去重：同一地址不重复绑定
-  if (emails.value.some((mail) => mail.address === address)) return
-
-  emails.value.push({
-    id: Date.now(),
-    address,
-    boundAt: '刚刚',
-  })
-}
 </script>
 
 <template>
-  <div class="my-page">
+  <div v-if="userStore.currentUser" class="my-page">
     <!-- 顶栏：日期 / 搜索 / 通知 / 头像 -->
     <header class="topbar">
       <span class="topbar-date">{{ today }}</span>
@@ -60,7 +51,7 @@ function addEmail() {
         <button class="icon-btn" type="button" aria-label="通知">
           <span aria-hidden="true">🔔</span>
         </button>
-        <img class="topbar-avatar" :src="currentUser.avatar" :alt="`${currentUser.name} 的头像`">
+        <img class="topbar-avatar" :src="userStore.currentUser.avatar" :alt="`${userStore.currentUser.name} 的头像`">
       </div>
     </header>
 
@@ -74,11 +65,11 @@ function addEmail() {
       <div class="profile-left">
         <section class="profile-section">
           <div class="profile-avatar">
-            <img :src="currentUser.avatar" alt="">
+            <img :src="userStore.currentUser.avatar" alt="">
           </div>
           <div class="profile-info">
-            <span class="name">{{ currentUser.name }}</span>
-            <span class="email">{{ currentUser.email }}</span>
+            <span class="name">{{ userStore.currentUser.name }}</span>
+            <span class="email">{{ userStore.currentUser.email }}</span>
           </div>
           <button class="edit-button" type="button" @click="toggleEditing">
             {{ isEditing ? '完成' : '编辑' }}
@@ -107,7 +98,7 @@ function addEmail() {
                 class="field-control field-select"
                 :disabled="!isEditing"
               >
-                <option v-for="option in genderOptions" :key="option" :value="option">
+                <option v-for="option in userStore.genderOptions" :key="option" :value="option">
                   {{ option }}
                 </option>
               </select>
@@ -134,14 +125,14 @@ function addEmail() {
 
         <section class="email-address-section">
           <h2 class="label section-label">My email Address</h2>
-          <div v-for="mail in emails" :key="mail.id" class="email-info">
+          <div v-for="mail in userStore.emails" :key="mail.id" class="email-info">
             <span class="email-icon" aria-hidden="true">✉</span>
             <div class="email-text">
               <span class="email-value">{{ mail.address }}</span>
               <span class="time">{{ mail.boundAt }}</span>
             </div>
           </div>
-          <button class="add-email" type="button" @click="addEmail">
+          <button class="add-email" type="button" @click="userStore.addEmail">
             +添加邮箱地址
           </button>
         </section>
@@ -150,7 +141,7 @@ function addEmail() {
       <!-- 右列：操作按钮 -->
       <div class="action-buttons">
         <button
-          v-for="action in profileActions"
+          v-for="action in userStore.profileActions"
           :key="action.key"
           class="action-button"
           :class="{ 'is-disabled': !action.enabled }"

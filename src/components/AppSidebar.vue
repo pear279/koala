@@ -4,8 +4,12 @@
  * 替代原 6 个 HTML 页面中逐字重复的 .sidebar 区块。
  * 导航项来自 config/navigation.js，激活态由路由自动判定。
  */
+import { onMounted } from 'vue'
 import { navItems } from '@/config/navigation'
-import { currentUser } from '@/data/mock'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+onMounted(() => userStore.load())
 </script>
 
 <template>
@@ -26,10 +30,10 @@ import { currentUser } from '@/data/mock'
       </RouterLink>
     </nav>
 
-    <div class="user-info">
-      <img class="user-avatar" :src="currentUser.avatar" :alt="`${currentUser.name} 的头像`">
-      <span class="user-name">{{ currentUser.name }}</span>
-      <span class="user-email">{{ currentUser.email }}</span>
+    <div v-if="userStore.currentUser" class="user-info">
+      <img class="user-avatar" :src="userStore.currentUser.avatar" :alt="`${userStore.currentUser.name} 的头像`">
+      <span class="user-name">{{ userStore.currentUser.name }}</span>
+      <span class="user-email">{{ userStore.currentUser.email }}</span>
     </div>
   </aside>
 </template>

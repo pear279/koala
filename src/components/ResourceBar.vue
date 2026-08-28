@@ -4,13 +4,17 @@
  * 替代原 5 个页面中重复的 .progress-group 区块。
  * 百分比数值与标签文字由同一份数据推导，不再分别硬编码在 CSS 和 HTML 中。
  */
-import { resources } from '@/data/mock'
+import { onMounted } from 'vue'
+import { useResourceStore } from '@/stores/resources'
+
+const resourceStore = useResourceStore()
+onMounted(() => resourceStore.load())
 </script>
 
 <template>
   <div class="resource-group">
     <section class="resource-bar-area">
-      <div v-for="item in resources" :key="item.key" class="resource-bar">
+      <div v-for="item in resourceStore.resources" :key="item.key" class="resource-bar">
         <div class="resource-bar-track">
           <!-- 进度宽度由数据驱动 -->
           <div
